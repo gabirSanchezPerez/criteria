@@ -7,12 +7,20 @@ import { FaRegComment, FaGraduationCap, FaRegUser, FaSearch} from 'react-icons/f
 const Form = () => {
     const [destination, setDestination] = useState("Any");
     const [provider, setProvider] = useState('Any');
+    const [showDestination, setShowDestination] = useState(false);
 
     const _onFocus = (e: any, i: number) => {
         let val: String = e.target.value;
         if (val.toLocaleLowerCase() === "any") {
             if(i === 0) {
                 setDestination("");
+                setShowDestination(true);
+            } else {
+                setProvider("");
+            }
+        } else {
+            if(i === 0) {
+                setShowDestination(true);
             } else {
                 setProvider("");
             }
@@ -27,6 +35,7 @@ const Form = () => {
             } else {
                 setProvider("Any");
             }
+            setShowDestination(false);
         }
     }
     
@@ -67,7 +76,11 @@ const Form = () => {
                     </div>
                 </div>
             </div>
-            <Modal destination={destination} provider={provider} />
+            <div className='content-modal'>
+                {showDestination && <Modal destination={destination} provider={provider} />}
+            </div>
+            
+            
         </>
     );
 }
