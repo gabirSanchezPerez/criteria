@@ -9,7 +9,7 @@ type Destination = {
   };
 
 const Modal = (props: any) => {
-    const { destination, provider} = props;
+    const { destination} = props;
     const [selectedDestination , setSelectedDestination] = useState<Destination[]>([])
 
     const _clickItem = (item: Destination) => {
