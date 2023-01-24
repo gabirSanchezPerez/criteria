@@ -31,21 +31,11 @@ const CriteriaProvider = ({ children }: CriteriaProviderPrpos) => {
     setSelectedProvider([...selectedProvider, newProvider]);
   };
   const updateDestination = (id: string) => {
-    const destinationFiltered = selectedDestination.filter((d: Destination) => {
-      if (d.id !== id) {
-        return d;
-      } 
-      return ;
-    });
+    const destinationFiltered = selectedDestination.filter((d: Destination) => d.id !== id);
     setSelectedDestination(destinationFiltered);
   };
   const updateProvider = (id: string) => {
-    const providerFiltered = selectedProvider.filter((p: Provider) => {
-      if (p.id !== id) {
-        return p;
-      }
-      return ;
-    });
+    const providerFiltered = selectedProvider.filter((p: Provider) => p.id !== id);
     setSelectedProvider(providerFiltered);
   };
 
