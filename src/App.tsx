@@ -1,11 +1,13 @@
-
 import Form from "./comonents/Form";
+import CriteriaProvider from "./comonents/context/CriteriaContext";
 
 const App = () => {
   return (
-    <div className="container">
-      <Form />
-    </div>
+    <CriteriaProvider>
+      <div className="container">
+        <Form />
+      </div>
+    </CriteriaProvider>
   );
 }
 

@@ -1,29 +1,28 @@
 
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Modal from './Modal';
 import { FaRegComment, FaGraduationCap, FaRegUser, FaSearch} from 'react-icons/fa';
-
+import { CriteriaContext } from "./context/CriteriaContext";
 
 const Form = () => {
-    const [destination, setDestination] = useState("Any");
-    const [provider, setProvider] = useState('Any');
-    const [showDestination, setShowDestination] = useState(false);
+    const [campus, setCampus] = useState("Any");
+    const [location, setLocation] = useState('Any');
+    const [origin, setOrigin] = useState(0);
+    const [showModal, setShowModal] = useState(false);
+    const criteriaContext = useContext(CriteriaContext);
 
     const _onFocus = (e: any, i: number) => {
+        setOrigin(i);
         let val: String = e.target.value;
         if (val.toLocaleLowerCase() === "any") {
             if(i === 0) {
-                setDestination("");
-                setShowDestination(true);
+                setLocation("");
             } else {
-                setProvider("");
+                setCampus("");
             }
+            setShowModal(true);
         } else {
-            if(i === 0) {
-                setShowDestination(true);
-            } else {
-                setProvider("");
-            }
+            setShowModal(true);
         }
     } 
 
@@ -31,12 +30,25 @@ const Form = () => {
         let val: String = e.target.value;
         if (val.trim() === "") {
             if(i === 0) {
-                setDestination("Any");
+                setLocation("Any");
             } else {
-                setProvider("Any");
+                setCampus("Any");
             }
-            setShowDestination(false);
+            setShowModal(false);
         }
+    }
+
+    const modalConfirm = () => {
+        setShowModal(false);
+        if (origin === 0) {
+            setLocation(`${criteriaContext?.selectedDestination.length} Selected`);
+        } else if (origin === 1) {
+            setCampus(`${criteriaContext?.selectedProvider.length} Selected`);
+        } 
+        
+    }
+    const modalCancel = () => {
+        setShowModal(false);
     }
     
     return (
@@ -61,10 +73,10 @@ const Form = () => {
                 <div className=" card-body "> 
                     <div className="row"> 
                         <div className='col-sm-6 col-md-3'>
-                            <input type="text" value={destination} placeholder='Search' className='form-control' name='destination' onFocus={(val) => _onFocus(val, 0)} onBlur={(val) => _onBlur(val, 0)} onChange={(val) => setDestination(val.target.value)}/>
+                            <input type="text" value={location} placeholder='Search' className='form-control' name='location' onFocus={(val) => _onFocus(val, 0)} onBlur={(val) => _onBlur(val, 0)} onChange={(val) => setLocation(val.target.value)}/>
                         </div>
                         <div className='col-sm-6 col-md-3'>
-                            <input type="text" value={provider} placeholder='Search' className='form-control' name='Provider' onFocus={(val) => _onFocus(val, 1)} onBlur={(val) => _onBlur(val, 1)} onChange={(val) => setProvider(val.target.value)}/>
+                            <input type="text" value={campus} placeholder='Search' className='form-control' name='campus' onFocus={(val) => _onFocus(val, 1)} onBlur={(val) => _onBlur(val, 1)} onChange={(val) => setCampus(val.target.value)}/>
                         </div>
                         <div className='col-sm-6 col-md-3'>
                             <input type="number" defaultValue='4' className='form-control' name='num_week'/>
@@ -77,7 +89,7 @@ const Form = () => {
                 </div>
             </div>
             <div className='content-modal'>
-                {showDestination && <Modal destination={destination} provider={provider} />}
+                {showModal && <Modal location={location} campus={campus} modalConfirm={modalConfirm} modalCancel={modalCancel} origin={origin} />}
             </div>
             
             
