@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import List from "./ui/list";
 import { CriteriaContext } from "./context/CriteriaContext";
 import { Destination, Provider } from "./context/types";
