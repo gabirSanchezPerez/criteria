@@ -6,8 +6,8 @@ type CriteriaProviderPrpos = { children: React.ReactNode }
 export const CriteriaContext = createContext<CriteriaContextType | null>(null);
 
 const CriteriaProvider = ({ children }: CriteriaProviderPrpos) => {
-  const [destinations, setDestinations] = useState<Destination[]>(locations);
-  const [providers, setProviders] = useState<Provider[]>(campuses);
+  const [destinations] = useState<Destination[]>(locations);
+  const [providers] = useState<Provider[]>(campuses);
   const [selectedDestination , setSelectedDestination] = useState<Destination[]>([])
   const [selectedProvider , setSelectedProvider] = useState<Provider[]>([])
 
@@ -34,7 +34,8 @@ const CriteriaProvider = ({ children }: CriteriaProviderPrpos) => {
     const destinationFiltered = selectedDestination.filter((d: Destination) => {
       if (d.id !== id) {
         return d;
-      }
+      } 
+      return ;
     });
     setSelectedDestination(destinationFiltered);
   };
@@ -43,6 +44,7 @@ const CriteriaProvider = ({ children }: CriteriaProviderPrpos) => {
       if (p.id !== id) {
         return p;
       }
+      return ;
     });
     setSelectedProvider(providerFiltered);
   };
